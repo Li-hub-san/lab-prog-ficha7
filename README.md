@@ -2,7 +2,7 @@
 
 ### Ex.1: Considere o seguinte diagrama.
 
-![Diagrama](uml_diagram.png)
+![Diagrama](https://github.com/Li-hub-san/lab-prog-ficha7/blob/master/src/main/resources/uml_diagram.png)
 
 Crie uma API que suporte e guarde a informação presente no diagrama de classes. Deverácriar os seguintes endpoints:
 
