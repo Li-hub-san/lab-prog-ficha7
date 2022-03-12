@@ -1,6 +1,6 @@
 # Ficha de exercícios 7
 
-### Ex.1: Considere o seguinte diagrama.
+#### Ex.1: Considere o seguinte diagrama.
 
 ![Diagrama](https://github.com/Li-hub-san/lab-prog-ficha7/blob/master/src/main/resources/uml_diagram.png)
 
