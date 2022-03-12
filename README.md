@@ -4,7 +4,7 @@
 
 ![Diagrama](https://github.com/Li-hub-san/lab-prog-ficha7/blob/master/src/main/resources/uml_diagram.png)
 
-Crie uma API que suporte e guarde a informação presente no diagrama de classes. Deverácriar os seguintes endpoints:
+Crie uma `API` que suporte e guarde a informação presente no diagrama de classes. Deverácriar os seguintes `endpoints`:
 
 <table>
 <tr>
@@ -39,6 +39,7 @@ Crie uma API que suporte e guarde a informação presente no diagrama de classes
 </tr>
 </table>
 
-Notas: Todas as verificações devem ser feitas (por exemplo, não pode ser permitido inserir/atualizar o valor do nome de
-uma pessoa como:'“ ”'). Cada elemento deverá ter um identificador único e gerado automaticamente. Remover uma empresa
-implica remover todas as pessoas.
+Notas: Todas as verificações devem ser feitas:
+:white_check_mark: e.g.: Não pode ser permitido inserir/atualizar o valor do nome de uma pessoa em vazio ou com espaços;
+:white_check_mark: Cada elemento deverá ter um identificador único e gerado automaticamente;
+:white_check_mark: Remover uma empresa implica remover todas as pessoas.
