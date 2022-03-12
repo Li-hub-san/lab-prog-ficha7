@@ -41,7 +41,7 @@ Crie uma `API` que suporte e guarde a informação presente no diagrama de class
 
 Notas: Todas as verificações devem ser feitas:
 
-:white_check_mark: e.g.: Não pode ser permitido inserir/atualizar o valor do nome de uma pessoa em vazio ou com espaços;
+:white_check_mark: Não pode ser permitido inserir/atualizar o valor do nome de uma pessoa em vazio ou com espaços;
 
 :white_check_mark: Cada elemento deverá ter um identificador único e gerado automaticamente;
 
