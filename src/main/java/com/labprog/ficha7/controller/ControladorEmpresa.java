@@ -24,9 +24,10 @@ public class ControladorEmpresa {
         return serviceEmpresa.updateEmpresa(empresa);
     }
 
-    @GetMapping("/deleteEmpresa/{id}")
-    public boolean deleteEmpresa(@PathVariable int id) {
-        return serviceEmpresa.deleteEmpresa(id);
+    @DeleteMapping("/deleteEmpresa/{id}")
+    public String deleteEmpresa(@PathVariable int id) throws Exception {
+        serviceEmpresa.deleteEmpresa(id);
+        return "Empresa apagada com sucesso.";
     }
 
     @GetMapping("/getAllEmpresas")

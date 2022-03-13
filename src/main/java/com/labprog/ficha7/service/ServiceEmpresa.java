@@ -1,6 +1,7 @@
 package com.labprog.ficha7.service;
 
 import com.labprog.ficha7.model.Empresa;
+import com.labprog.ficha7.model.Pessoa;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,30 +23,27 @@ public class ServiceEmpresa {
     }
 
     public Empresa updateEmpresa(Empresa empresa) throws Exception {
-        for (Empresa empresaDb : empresas) {
-            if (empresaDb.getId() == empresa.getId()) {
-                if (empresa.getNome() != null && !empresa.getNome().isBlank()) {
-                    empresaDb.setNome(empresa.getNome());
-                }
-                if (empresa.getMorada() != null && !empresa.getMorada().isBlank()) {
-                    empresaDb.setMorada(empresa.getMorada());
-                }
-                return empresa;
-            }
+        Empresa empresaDb = getEmpresa(empresa.getId());
+
+        if (empresa.getNome() != null && !empresa.getNome().isBlank()) {
+            empresaDb.setNome(empresa.getNome());
         }
 
-        throw new Exception("Empresa Inexistente");
+        if (empresa.getMorada() != null && !empresa.getMorada().isBlank()) {
+            empresaDb.setMorada(empresa.getMorada());
+        }
+
+        return empresaDb;
     }
 
-    public boolean deleteEmpresa(int id) {
-        for (Empresa empresa : empresas) {
-            if (empresa.getId() == id) {
-                empresa.getPessoas().forEach(pessoa -> servicePessoa.deletePessoa(pessoa.getId()));
-                empresas.remove(empresa);
-                return true;
-            }
+    public void deleteEmpresa(int id) throws Exception {
+        Empresa empresa = getEmpresa(id);
+
+        for (Pessoa pessoa : empresa.getPessoas()) {
+            servicePessoa.deletePessoa(pessoa.getId());
         }
-        return false;
+
+        empresas.remove(empresa);
     }
 
     public List<Empresa> getEmpresas() {
@@ -58,6 +56,6 @@ public class ServiceEmpresa {
                 return empresa;
             }
         }
-        throw new Exception("Empresa com id " + id + " inexistente.");
+        throw new Exception("Empresa com o id " + id + " inexistente.");
     }
 }

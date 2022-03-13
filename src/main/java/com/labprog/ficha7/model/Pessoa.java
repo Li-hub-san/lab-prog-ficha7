@@ -49,10 +49,6 @@ public class Pessoa {
         return empresaId;
     }
 
-    public void setEmpresaId(int empresaId) {
-        this.empresaId = empresaId;
-    }
-
     @Override
     public String toString() {
         return "Pessoa{" +

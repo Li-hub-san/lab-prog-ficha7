@@ -19,15 +19,27 @@ public class ControladorPessoa {
 
     @PostMapping("/addPessoa")
     public ResponseEntity<SimpleResponse<Pessoa>> addPessoa(@RequestBody Pessoa pessoa) {
-        SimpleResponse<Pessoa> sr = new SimpleResponse<>(
-                true,
-                "Pessoa adicionada com sucesso",
-                servicePessoa.addPessoa(pessoa)
-        );
+        try {
+            SimpleResponse<Pessoa> sr = new SimpleResponse<>(
+                    true,
+                    "Pessoa adicionada com sucesso",
+                    servicePessoa.addPessoa(pessoa)
+            );
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(sr);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(sr);
+        } catch (Exception e) {
+            SimpleResponse<Pessoa> sr = new SimpleResponse<>(
+                    false,
+                    e.getMessage(),
+                    null
+            );
+
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(sr);
+        }
     }
 
     @PutMapping("/updatePessoa")
@@ -36,8 +48,9 @@ public class ControladorPessoa {
     }
 
     @DeleteMapping("/deletePessoa/{id}")
-    public Boolean deletePessoa(@PathVariable int id) {
-        return servicePessoa.deletePessoa(id);
+    public String deletePessoa(@PathVariable int id) throws Exception {
+        servicePessoa.deletePessoa(id);
+        return "Pessoa apagada com sucesso.";
     }
 
     @GetMapping("/getAllPessoas")

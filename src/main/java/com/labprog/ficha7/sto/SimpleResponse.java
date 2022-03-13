@@ -5,8 +5,8 @@ public class SimpleResponse<T> {
     private String message;
     private T data;
 
-    public SimpleResponse(boolean statusOk, String message, T data) {
-        this.status = statusOk;
+    public SimpleResponse(boolean status, String message, T data) {
+        this.status = status;
         this.message = message;
         this.data = data;
     }
