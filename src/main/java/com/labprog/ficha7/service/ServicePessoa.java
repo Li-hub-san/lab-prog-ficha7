@@ -19,7 +19,7 @@ public class ServicePessoa {
 
     public Pessoa addPessoa(Pessoa pessoa) throws Exception {
         if (pessoa.getIdade() < 16 || pessoa.getNome() == null || pessoa.getNome().isBlank()) {
-            throw new Exception("Campos incompletos");
+            throw new Exception("Campos incompletos.");
         }
 
         // validação se a empresa existe ou não está feita dentro de getEmpresa -> menos uma validação neste método.
@@ -29,26 +29,6 @@ public class ServicePessoa {
         pessoas.add(pessoa);
 
         return pessoa;
-    }
-
-    public List<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
-    public Pessoa getPessoa(int id) throws Exception {
-        for (Pessoa pessoa : pessoas) {
-            if (pessoa.getId() == id) {
-                return pessoa;
-            }
-        }
-        throw new Exception("Pessoa com o id " + id + " inexistente.");
-    }
-
-    public void deletePessoa(int id) throws Exception {
-        Pessoa pessoa = getPessoa(id);
-        pessoas.remove(pessoa);
-        Empresa empresa = serviceEmpresa.getEmpresa(pessoa.getEmpresaId());
-        empresa.cessarContrato(pessoa);
     }
 
     public Pessoa updatePessoa(Pessoa pessoa) throws Exception {
@@ -67,6 +47,26 @@ public class ServicePessoa {
         }
 
         return pessoaDb;
+    }
+
+    public void deletePessoa(int id) throws Exception {
+        Pessoa pessoa = getPessoa(id);
+        pessoas.remove(pessoa);
+        Empresa empresa = serviceEmpresa.getEmpresa(pessoa.getEmpresaId());
+        empresa.cessarContrato(pessoa);
+    }
+
+    public List<Pessoa> getPessoas() {
+        return pessoas;
+    }
+
+    public Pessoa getPessoa(int id) throws Exception {
+        for (Pessoa pessoa : pessoas) {
+            if (pessoa.getId() == id) {
+                return pessoa;
+            }
+        }
+        throw new Exception("Pessoa com o id " + id + " inexistente.");
     }
 
 }

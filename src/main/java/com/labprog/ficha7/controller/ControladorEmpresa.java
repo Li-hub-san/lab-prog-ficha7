@@ -2,12 +2,12 @@ package com.labprog.ficha7.controller;
 
 import com.labprog.ficha7.model.Empresa;
 import com.labprog.ficha7.service.ServiceEmpresa;
+import com.labprog.ficha7.sto.SimpleResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-public class ControladorEmpresa {
+public class ControladorEmpresa extends ControladorBasico {
     private final ServiceEmpresa serviceEmpresa;
 
     public ControladorEmpresa(ServiceEmpresa serviceEmpresa) {
@@ -15,29 +15,49 @@ public class ControladorEmpresa {
     }
 
     @PostMapping("/addEmpresa")
-    public Empresa addEmpresa(@RequestBody Empresa empresa) {
-        return serviceEmpresa.addEmpresa(empresa);
+    public ResponseEntity<SimpleResponse> addEmpresa(@RequestBody Empresa empresa) {
+        try {
+            return sucesso(serviceEmpresa.addEmpresa(empresa), "Empresa adicionada com sucesso.");
+        } catch (Exception e) {
+            return erro(e);
+        }
     }
 
     @PutMapping("/updateEmpresa")
-    public Empresa updateEmpresa(@RequestBody Empresa empresa) throws Exception {
-        return serviceEmpresa.updateEmpresa(empresa);
+    public ResponseEntity<SimpleResponse> updateEmpresa(@RequestBody Empresa empresa) {
+        try {
+            return sucesso(serviceEmpresa.updateEmpresa(empresa), "Empresa atualizada com sucesso.");
+        } catch (Exception e) {
+            return erro(e);
+        }
     }
 
     @DeleteMapping("/deleteEmpresa/{id}")
-    public String deleteEmpresa(@PathVariable int id) throws Exception {
-        serviceEmpresa.deleteEmpresa(id);
-        return "Empresa apagada com sucesso.";
+    public ResponseEntity<SimpleResponse> deleteEmpresa(@PathVariable int id) {
+        try {
+            serviceEmpresa.deleteEmpresa(id);
+            return sucesso(null, "Empresa apagada com sucesso.");
+        } catch (Exception e) {
+            return erro(e);
+        }
     }
 
     @GetMapping("/getAllEmpresas")
-    public List<Empresa> getEmpresas() {
-        return serviceEmpresa.getEmpresas();
+    public ResponseEntity<SimpleResponse> getEmpresas() {
+        try {
+            return sucesso(serviceEmpresa.getEmpresas(), "Empresas encontradas.");
+        } catch (Exception e) {
+            return erro(e);
+        }
     }
 
     @GetMapping("/getEmpresaById/{id}")
-    public Empresa getEmpresa(@PathVariable int id) throws Exception {
-        return serviceEmpresa.getEmpresa(id);
+    public ResponseEntity<SimpleResponse> getEmpresa(@PathVariable int id) throws Exception {
+        try {
+            return sucesso(serviceEmpresa.getEmpresa(id), "Empresa encontrada.");
+        } catch (Exception e) {
+            return erro(e);
+        }
     }
 
 }

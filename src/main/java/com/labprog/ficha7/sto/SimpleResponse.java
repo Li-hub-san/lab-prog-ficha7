@@ -1,11 +1,11 @@
 package com.labprog.ficha7.sto;
 
-public class SimpleResponse<T> {
+public class SimpleResponse {
     private boolean status;
     private String message;
-    private T data;
+    private Object data;
 
-    public SimpleResponse(boolean status, String message, T data) {
+    public SimpleResponse(boolean status, String message, Object data) {
         this.status = status;
         this.message = message;
         this.data = data;
@@ -27,11 +27,11 @@ public class SimpleResponse<T> {
         this.message = message;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }

@@ -17,7 +17,11 @@ public class ServiceEmpresa {
         this.empresas = new ArrayList<>();
     }
 
-    public Empresa addEmpresa(Empresa empresa) {
+    public Empresa addEmpresa(Empresa empresa) throws Exception {
+        if (empresa.getNome() == null || empresa.getMorada().isBlank() || empresa.getMorada() == null) {
+            throw new Exception("Campos incompletos.");
+        }
+
         empresas.add(empresa);
         return empresa;
     }
