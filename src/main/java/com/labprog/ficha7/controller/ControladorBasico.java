@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public class ControladorBasico {
-
+    
     protected ResponseEntity<SimpleResponse> sucesso(Object data, String message) {
         SimpleResponse sr = new SimpleResponse(
                 true,

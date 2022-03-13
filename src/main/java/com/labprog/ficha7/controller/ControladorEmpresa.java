@@ -52,7 +52,7 @@ public class ControladorEmpresa extends ControladorBasico {
     }
 
     @GetMapping("/getEmpresaById/{id}")
-    public ResponseEntity<SimpleResponse> getEmpresa(@PathVariable int id) throws Exception {
+    public ResponseEntity<SimpleResponse> getEmpresa(@PathVariable int id) {
         try {
             return sucesso(serviceEmpresa.getEmpresa(id), "Empresa encontrada.");
         } catch (Exception e) {
