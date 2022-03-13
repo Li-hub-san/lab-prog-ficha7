@@ -25,7 +25,7 @@ public class ControladorEmpresa {
     }
 
     @GetMapping("/deleteEmpresa/{id}")
-    public boolean deleteEmpresa(@PathVariable String id) {
+    public boolean deleteEmpresa(@PathVariable int id) {
         return serviceEmpresa.deleteEmpresa(id);
     }
 
@@ -35,7 +35,7 @@ public class ControladorEmpresa {
     }
 
     @GetMapping("/getEmpresaById/{id}")
-    public Empresa getEmpresa(@PathVariable String id) throws Exception {
+    public Empresa getEmpresa(@PathVariable int id) throws Exception {
         return serviceEmpresa.getEmpresa(id);
     }
 

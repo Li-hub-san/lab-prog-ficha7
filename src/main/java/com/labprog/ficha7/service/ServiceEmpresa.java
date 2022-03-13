@@ -3,11 +3,18 @@ package com.labprog.ficha7.service;
 import com.labprog.ficha7.model.Empresa;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ServiceEmpresa {
-    private List<Empresa> empresas;
+    private final List<Empresa> empresas;
+    private final ServicePessoa servicePessoa;
+
+    public ServiceEmpresa(ServicePessoa servicePessoa) {
+        this.servicePessoa = servicePessoa;
+        this.empresas = new ArrayList<>();
+    }
 
     public Empresa addEmpresa(Empresa empresa) {
         empresas.add(empresa);
@@ -30,11 +37,10 @@ public class ServiceEmpresa {
         throw new Exception("Empresa Inexistente");
     }
 
-    public boolean deleteEmpresa(String id) {
-        int empresaId = Integer.parseInt(id);
-
+    public boolean deleteEmpresa(int id) {
         for (Empresa empresa : empresas) {
-            if (empresa.getId() == empresaId) {
+            if (empresa.getId() == id) {
+                empresa.getPessoas().forEach(pessoa -> servicePessoa.deletePessoa(pessoa.getId()));
                 empresas.remove(empresa);
                 return true;
             }
@@ -46,10 +52,9 @@ public class ServiceEmpresa {
         return empresas;
     }
 
-    public Empresa getEmpresa(String id) throws Exception {
-        int empresaId = Integer.parseInt(id);
+    public Empresa getEmpresa(int id) throws Exception {
         for (Empresa empresa : empresas) {
-            if (empresa.getId() == empresaId) {
+            if (empresa.getId() == id) {
                 return empresa;
             }
         }

@@ -1,22 +1,22 @@
 package com.labprog.ficha7.sto;
 
 public class SimpleResponse<T> {
-    private boolean statusOk;
+    private boolean status;
     private String message;
     private T data;
 
     public SimpleResponse(boolean statusOk, String message, T data) {
-        this.statusOk = statusOk;
+        this.status = statusOk;
         this.message = message;
         this.data = data;
     }
 
-    public boolean isStatusOk() {
-        return statusOk;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setStatusOk(boolean statusOk) {
-        this.statusOk = statusOk;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public String getMessage() {

@@ -36,7 +36,7 @@ public class ControladorPessoa {
     }
 
     @DeleteMapping("/deletePessoa/{id}")
-    public Boolean deletePessoa(@PathVariable String id) {
+    public Boolean deletePessoa(@PathVariable int id) {
         return servicePessoa.deletePessoa(id);
     }
 
@@ -46,7 +46,7 @@ public class ControladorPessoa {
     }
 
     @GetMapping("/getPessoaById/{id}")
-    public Pessoa getPessoa(@PathVariable String id) throws Exception {
+    public Pessoa getPessoa(@PathVariable int id) throws Exception {
         return servicePessoa.getPessoa(id);
     }
 

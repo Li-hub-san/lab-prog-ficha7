@@ -20,13 +20,13 @@ public class Empresa {
         pessoas = new ArrayList<>();
     }
 
-    public void adicionarPessoas(Pessoa pessoa) {
+    public void contratar(Pessoa pessoa) {
         pessoas.add(pessoa);
         numeroFuncionariosAtual++;
         numeroFuncionariosDesdeCriacao++;
     }
 
-    public void removerPessoa(Pessoa pessoa) {
+    public void cessarContrato(Pessoa pessoa) {
         pessoas.remove(pessoa);
         numeroFuncionariosAtual--;
     }

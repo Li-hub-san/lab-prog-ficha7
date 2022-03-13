@@ -14,6 +14,7 @@ public class ServicePessoa {
         if (pessoa.getIdade() > 0 && pessoa.getNome() != null && !pessoa.getNome().isBlank()) {
             pessoas.add(pessoa);
         }
+
         return pessoa;
     }
 
@@ -21,11 +22,9 @@ public class ServicePessoa {
         return pessoas;
     }
 
-    public Pessoa getPessoa(String id) throws Exception {
-        int pessoaId = Integer.parseInt(id);
-
+    public Pessoa getPessoa(int id) throws Exception {
         for (Pessoa pessoa : pessoas) {
-            if (pessoa.getId() == pessoaId) {
+            if (pessoa.getId() == id) {
                 return pessoa;
             }
         }
@@ -33,12 +32,10 @@ public class ServicePessoa {
 
     }
 
-    public boolean deletePessoa(String id) {
-        int pessoaId = Integer.parseInt(id);
-
+    public boolean deletePessoa(int id) {
         for (int i = 0; i < pessoas.size(); i++) {
             Pessoa pessoa = pessoas.get(i);
-            if (pessoa.getId() == pessoaId) {
+            if (pessoa.getId() == id) {
                 pessoas.remove(pessoa);
                 return true;
             }

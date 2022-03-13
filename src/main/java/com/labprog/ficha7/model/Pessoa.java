@@ -6,13 +6,13 @@ public class Pessoa {
     private String nome;
     private int idade;
     private String email;
-    private Empresa empresa;
+    private int empresaId;
 
-    public Pessoa(String nome, int idade, String email, Empresa empresa) {
+    public Pessoa(String nome, int idade, String email, int empresaId) {
         this.nome = nome;
         this.idade = idade;
         this.email = email;
-        this.empresa = empresa;
+        this.empresaId = empresaId;
         idCounter++;
         this.id = idCounter;
     }
@@ -45,12 +45,12 @@ public class Pessoa {
         return id;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public int getEmpresaId() {
+        return empresaId;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setEmpresaId(int empresaId) {
+        this.empresaId = empresaId;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Pessoa {
                 ", nome='" + nome + '\'' +
                 ", idade=" + idade +
                 ", email='" + email + '\'' +
-                ", empresa=" + empresa +
+                ", empresa=" + empresaId +
                 '}';
     }
 }
