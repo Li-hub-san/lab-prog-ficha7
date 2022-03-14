@@ -2,6 +2,7 @@ package com.labprog.ficha7.service;
 
 import com.labprog.ficha7.model.Empresa;
 import com.labprog.ficha7.model.Pessoa;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class ServiceEmpresa {
     private final List<Empresa> empresas;
     private final ServicePessoa servicePessoa;
 
-    public ServiceEmpresa(ServicePessoa servicePessoa) {
+    public ServiceEmpresa(@Lazy ServicePessoa servicePessoa) {
         this.servicePessoa = servicePessoa;
         this.empresas = new ArrayList<>();
     }
@@ -31,13 +32,17 @@ public class ServiceEmpresa {
 
         if (empresa.getNome() != null && !empresa.getNome().isBlank()) {
             empresaDb.setNome(empresa.getNome());
+        } else {
+            throw new Exception("Nome nulo ou em branco.");
         }
 
         if (empresa.getMorada() != null && !empresa.getMorada().isBlank()) {
             empresaDb.setMorada(empresa.getMorada());
+        } else {
+            throw new Exception("Morada nula ou em branco.");
         }
 
-        return empresaDb;
+            return empresaDb;
     }
 
     public void deleteEmpresa(int id) throws Exception {

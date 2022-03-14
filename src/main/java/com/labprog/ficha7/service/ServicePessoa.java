@@ -1,5 +1,6 @@
 package com.labprog.ficha7.service;
 
+import com.labprog.ficha7.dto.SimpleResponse;
 import com.labprog.ficha7.model.Empresa;
 import com.labprog.ficha7.model.Pessoa;
 import org.springframework.context.annotation.Lazy;
@@ -13,7 +14,7 @@ public class ServicePessoa {
     public List<Pessoa> pessoas = new ArrayList<>();
     private final ServiceEmpresa serviceEmpresa;
 
-    public ServicePessoa(@Lazy ServiceEmpresa serviceEmpresa) {
+    public ServicePessoa(ServiceEmpresa serviceEmpresa) {
         this.serviceEmpresa = serviceEmpresa;
     }
 
@@ -36,14 +37,20 @@ public class ServicePessoa {
 
         if (pessoa.getIdade() >= 16) {
             pessoaDb.setIdade(pessoa.getIdade());
+        } else {
+            throw new Exception("Idade < 16.");
         }
 
         if (pessoa.getNome() != null && !pessoa.getNome().isBlank()) {
             pessoaDb.setNome(pessoa.getNome());
+        }else {
+            throw new Exception("Nome nulo ou em branco.");
         }
 
         if (pessoa.getEmail() != null && !pessoa.getEmail().isBlank()) {
             pessoaDb.setEmail(pessoa.getEmail());
+        }else {
+            throw new Exception("Email nulo ou em branco.");
         }
 
         return pessoaDb;

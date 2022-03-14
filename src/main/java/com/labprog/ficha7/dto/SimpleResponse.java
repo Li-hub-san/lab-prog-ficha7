@@ -1,14 +1,14 @@
-package com.labprog.ficha7.sto;
+package com.labprog.ficha7.dto;
 
 public class SimpleResponse {
     private boolean status;
     private String message;
-    private Object data;
+//    private Object data; // é simple response, assim não sei o que é a resposta.
 
-    public SimpleResponse(boolean status, String message, Object data) {
+    public SimpleResponse(boolean status, String message) {
         this.status = status;
         this.message = message;
-        this.data = data;
+//        this.data = data;
     }
 
     public boolean isStatus() {
@@ -26,12 +26,11 @@ public class SimpleResponse {
     public void setMessage(String message) {
         this.message = message;
     }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
+//    public Object getData() {
+//        return data;
+//    }
+//
+//    public void setData(Object data) {
+//        this.data = data;
+//    }
 }
