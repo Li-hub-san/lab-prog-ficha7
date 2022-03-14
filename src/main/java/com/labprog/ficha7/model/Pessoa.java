@@ -1,27 +1,27 @@
 package com.labprog.ficha7.model;
 
-import com.labprog.ficha7.repository.PessoaRepository;
+import javax.persistence.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-//@Entity
-//@Table(name = "Pessoa")
+@Entity
+@Table(name = "Pessoa")
 public class Pessoa {
-    protected static int idCounter;
-    protected final int id;
-    protected String nome;
-    protected int idade;
-    protected String email;
-    protected final int empresaId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String nome;
+    private int idade;
+    private String email;
+    private int empresaId;
 
     public Pessoa(String nome, int idade, String email, int empresaId) {
         this.nome = nome;
         this.idade = idade;
         this.email = email;
         this.empresaId = empresaId;
-        idCounter++;
-        this.id = idCounter;
+    }
+
+    public Pessoa() {
     }
 
     public String getNome() {
@@ -50,6 +50,10 @@ public class Pessoa {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getEmpresaId() {

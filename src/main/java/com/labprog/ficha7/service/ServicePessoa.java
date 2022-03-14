@@ -1,9 +1,8 @@
 package com.labprog.ficha7.service;
 
-import com.labprog.ficha7.dto.SimpleResponse;
 import com.labprog.ficha7.model.Empresa;
 import com.labprog.ficha7.model.Pessoa;
-import org.springframework.context.annotation.Lazy;
+import com.labprog.ficha7.repository.PessoaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,8 +13,11 @@ public class ServicePessoa {
     public List<Pessoa> pessoas = new ArrayList<>();
     private final ServiceEmpresa serviceEmpresa;
 
-    public ServicePessoa(ServiceEmpresa serviceEmpresa) {
+    private PessoaRepository pessoaRepository;
+
+    public ServicePessoa(ServiceEmpresa serviceEmpresa, PessoaRepository pessoaRepository) {
         this.serviceEmpresa = serviceEmpresa;
+        this.pessoaRepository = pessoaRepository;
     }
 
     public Pessoa addPessoa(Pessoa pessoa) throws Exception {
@@ -27,7 +29,8 @@ public class ServicePessoa {
         Empresa empresa = serviceEmpresa.getEmpresa(pessoa.getEmpresaId());
         empresa.contratar(pessoa);
 
-        pessoas.add(pessoa);
+        pessoaRepository.save(pessoa);
+//        pessoas.add(pessoa);
 
         return pessoa;
     }
@@ -43,13 +46,13 @@ public class ServicePessoa {
 
         if (pessoa.getNome() != null && !pessoa.getNome().isBlank()) {
             pessoaDb.setNome(pessoa.getNome());
-        }else {
+        } else {
             throw new Exception("Nome nulo ou em branco.");
         }
 
         if (pessoa.getEmail() != null && !pessoa.getEmail().isBlank()) {
             pessoaDb.setEmail(pessoa.getEmail());
-        }else {
+        } else {
             throw new Exception("Email nulo ou em branco.");
         }
 
