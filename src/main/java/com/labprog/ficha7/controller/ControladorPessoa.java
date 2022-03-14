@@ -29,7 +29,7 @@ public class ControladorPessoa {
     @PutMapping("/updatePessoa")
     public ResponseEntity<SimpleResponse> updatePessoa(@RequestBody Pessoa pessoa) {
         try {
-            servicePessoa.updatePessoa(pessoa);
+            Pessoa pessoaAtualizada = servicePessoa.updatePessoa(pessoa);
             return Utils.sucesso("Pessoa atualizada com sucesso.");
         } catch (Exception e) {
             return Utils.erro(e);

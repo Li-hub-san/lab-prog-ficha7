@@ -1,12 +1,19 @@
 package com.labprog.ficha7.model;
 
+import com.labprog.ficha7.repository.PessoaRepository;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+//@Entity
+//@Table(name = "Pessoa")
 public class Pessoa {
-    private static int idCounter;
-    private final int id;
-    private String nome;
-    private int idade;
-    private String email;
-    private int empresaId;
+    protected static int idCounter;
+    protected final int id;
+    protected String nome;
+    protected int idade;
+    protected String email;
+    protected final int empresaId;
 
     public Pessoa(String nome, int idade, String email, int empresaId) {
         this.nome = nome;

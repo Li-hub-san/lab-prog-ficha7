@@ -19,6 +19,8 @@ public class ServiceEmpresa {
     }
 
     public Empresa addEmpresa(Empresa empresa) throws Exception {
+
+        // por defeito o id tem que ser verificado se vai a null -> se levar id, é feito Update do id já presente na DB.
         if (empresa.getNome() == null || empresa.getMorada().isBlank() || empresa.getMorada() == null) {
             throw new Exception("Campos incompletos.");
         }
