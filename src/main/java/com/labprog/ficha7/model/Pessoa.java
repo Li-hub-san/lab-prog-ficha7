@@ -1,5 +1,7 @@
 package com.labprog.ficha7.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,13 +14,16 @@ public class Pessoa {
     private String nome;
     private int idade;
     private String email;
-    private Long empresaId;
 
-    public Pessoa(String nome, int idade, String email, Long empresaId) {
+    @ManyToOne
+    @JoinColumn(name = "empresa_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // não quero ignorar quando envio o id da empresa
+    private Empresa empresa;
+
+    public Pessoa(String nome, int idade, String email) {
         this.nome = nome;
         this.idade = idade;
         this.email = email;
-        this.empresaId = empresaId;
     }
 
     public Pessoa() {
@@ -56,8 +61,12 @@ public class Pessoa {
         this.id = id;
     }
 
-    public Long getEmpresaId() {
-        return empresaId;
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     @Override
@@ -67,7 +76,6 @@ public class Pessoa {
                 ", nome='" + nome + '\'' +
                 ", idade=" + idade +
                 ", email='" + email + '\'' +
-                ", empresa=" + empresaId +
                 '}';
     }
 }

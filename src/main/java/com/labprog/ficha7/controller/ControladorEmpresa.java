@@ -48,6 +48,7 @@ public class ControladorEmpresa {
             SimpleResponse sr = new SimpleResponse();
             serviceEmpresa.deleteEmpresa(id);
             sr.setMessage("Empresa eliminada com sucesso.");
+            sr.setStatus(true);
             return Utils.sucesso(sr);
         } catch (SimpleException e) {
             return Utils.erro(e);

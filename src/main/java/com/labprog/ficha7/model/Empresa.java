@@ -19,7 +19,7 @@ public class Empresa {
     private int numeroFuncionariosDesdeCriacao;
 
     @Builder.Default
-    @OneToMany(mappedBy = "empresaId")
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL)
     private List<Pessoa> pessoas = new ArrayList<>();
 
     public Empresa(String nome, String morada) {
@@ -30,14 +30,12 @@ public class Empresa {
     public Empresa() {
     }
 
-    public void contratar(Pessoa pessoa) {
-        pessoas.add(pessoa);
+    public void aumentarFuncionariosAtuais() {
         numeroFuncionariosAtual++;
         numeroFuncionariosDesdeCriacao++;
     }
 
-    public void cessarContrato(Pessoa pessoa) {
-        pessoas.remove(pessoa);
+    public void reduzirFuncionariosAtuais() {
         numeroFuncionariosAtual--;
     }
 

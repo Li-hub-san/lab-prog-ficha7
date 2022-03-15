@@ -48,6 +48,7 @@ public class ControladorPessoa {
         try {
             SimpleResponse sr = new SimpleResponse();
             sr.setMessage("Pessoa apagada com sucesso.");
+            sr.setStatus(true);
             servicePessoa.deletePessoa(id);
             return Utils.sucesso(sr);
         } catch (SimpleException e) {

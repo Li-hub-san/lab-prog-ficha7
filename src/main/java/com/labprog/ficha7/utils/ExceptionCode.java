@@ -8,5 +8,6 @@ public enum ExceptionCode {
     MORADA_INVALIDA,
     IDADE_INVALIDA,
     EMAIL_INVALIDO,
+    ID_INVALIDO,
     ID_NAO_PERMITIDO
 }

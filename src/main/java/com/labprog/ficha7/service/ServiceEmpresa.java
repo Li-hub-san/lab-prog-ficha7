@@ -1,31 +1,20 @@
 package com.labprog.ficha7.service;
 
 import com.labprog.ficha7.model.Empresa;
-import com.labprog.ficha7.model.Pessoa;
 import com.labprog.ficha7.repository.EmpresaRepository;
-import com.labprog.ficha7.repository.PessoaRepository;
 import com.labprog.ficha7.utils.ExceptionCode;
 import com.labprog.ficha7.utils.SimpleException;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ServiceEmpresa {
-    private final List<Empresa> empresas;
-    private final ServicePessoa servicePessoa;
     private final EmpresaRepository empresaRepository;
-    private final PessoaRepository pessoaRepository;
-    public ServiceEmpresa(@Lazy ServicePessoa servicePessoa,
-                          EmpresaRepository empresaRepository,
-                          PessoaRepository pessoaRepository) {
-        this.servicePessoa = servicePessoa;
+
+    public ServiceEmpresa(EmpresaRepository empresaRepository) {
         this.empresaRepository = empresaRepository;
-        this.pessoaRepository = pessoaRepository;
-        this.empresas = new ArrayList<>();
     }
 
     public Empresa addEmpresa(Empresa empresa) throws SimpleException {
@@ -42,6 +31,10 @@ public class ServiceEmpresa {
     }
 
     public Empresa updateEmpresa(Empresa empresa) throws SimpleException {
+        if (empresa.getId() == null) {
+            throw new SimpleException(ExceptionCode.ID_INVALIDO, "Id obrigatório");
+        }
+
         Empresa empresaDb = getEmpresa(empresa.getId());
 
         if (empresa.getNome() != null && !empresa.getNome().isBlank()) {
@@ -56,29 +49,24 @@ public class ServiceEmpresa {
             throw new SimpleException(ExceptionCode.MORADA_INVALIDA, "Morada nula ou em branco.");
         }
 
-        return empresaDb;
+        return empresaRepository.save(empresaDb);
     }
 
     public void deleteEmpresa(Long id) throws SimpleException {
         Empresa empresa = getEmpresa(id);
-
-        for (Pessoa pessoa : empresa.getPessoas()) {
-            servicePessoa.deletePessoa(pessoa.getId());
-        }
-
-        empresas.remove(empresa);
+        empresaRepository.delete(empresa);
     }
 
     public List<Empresa> getEmpresas() {
-        return empresas;
+        return (List<Empresa>) empresaRepository.findAll();
     }
 
     public Empresa getEmpresa(Long id) throws SimpleException {
-        for (Empresa empresa : empresas) {
-            if (Objects.equals(empresa.getId(), id)) {
-                return empresa;
-            }
+        Optional<Empresa> empresa = empresaRepository.findById(id);
+        if (empresa.isPresent()) {
+            return empresa.get();
         }
+
         throw new SimpleException(ExceptionCode.NAO_ENCONTRADO, "Empresa com o id " + id + " inexistente.");
     }
 }
