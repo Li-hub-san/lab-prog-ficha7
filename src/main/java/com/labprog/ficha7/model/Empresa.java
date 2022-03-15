@@ -1,23 +1,33 @@
 package com.labprog.ficha7.model;
 
+import lombok.Builder;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "empresa")
 public class Empresa {
-    private final int id;
-    private static int idCounter = 0;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String nome;
     private String morada;
     private int numeroFuncionariosAtual;
     private int numeroFuncionariosDesdeCriacao;
-    private final List<Pessoa> pessoas;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "empresaId")
+    private List<Pessoa> pessoas = new ArrayList<>();
 
     public Empresa(String nome, String morada) {
         this.nome = nome;
         this.morada = morada;
-        idCounter++;
-        this.id = idCounter;
-        pessoas = new ArrayList<>();
+    }
+
+    public Empresa() {
     }
 
     public void contratar(Pessoa pessoa) {
@@ -51,7 +61,7 @@ public class Empresa {
         this.morada = morada;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

@@ -7,14 +7,14 @@ import javax.persistence.*;
 public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String nome;
     private int idade;
     private String email;
-    private int empresaId;
+    private Long empresaId;
 
-    public Pessoa(String nome, int idade, String email, int empresaId) {
+    public Pessoa(String nome, int idade, String email, Long empresaId) {
         this.nome = nome;
         this.idade = idade;
         this.email = email;
@@ -48,15 +48,15 @@ public class Pessoa {
         this.email = email;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getEmpresaId() {
+    public Long getEmpresaId() {
         return empresaId;
     }
 
