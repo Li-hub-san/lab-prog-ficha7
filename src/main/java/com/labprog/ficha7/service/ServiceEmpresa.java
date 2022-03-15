@@ -3,6 +3,7 @@ package com.labprog.ficha7.service;
 import com.labprog.ficha7.model.Empresa;
 import com.labprog.ficha7.model.Pessoa;
 import com.labprog.ficha7.repository.EmpresaRepository;
+import com.labprog.ficha7.repository.PessoaRepository;
 import com.labprog.ficha7.utils.ExceptionCode;
 import com.labprog.ficha7.utils.SimpleException;
 import org.springframework.context.annotation.Lazy;
@@ -17,11 +18,13 @@ public class ServiceEmpresa {
     private final List<Empresa> empresas;
     private final ServicePessoa servicePessoa;
     private final EmpresaRepository empresaRepository;
-
+    private final PessoaRepository pessoaRepository;
     public ServiceEmpresa(@Lazy ServicePessoa servicePessoa,
-                          EmpresaRepository empresaRepository) {
+                          EmpresaRepository empresaRepository,
+                          PessoaRepository pessoaRepository) {
         this.servicePessoa = servicePessoa;
         this.empresaRepository = empresaRepository;
+        this.pessoaRepository = pessoaRepository;
         this.empresas = new ArrayList<>();
     }
 

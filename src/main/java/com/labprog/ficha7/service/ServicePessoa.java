@@ -14,10 +14,10 @@ import java.util.List;
 public class ServicePessoa {
     public List<Pessoa> pessoas = new ArrayList<>();
     private final ServiceEmpresa serviceEmpresa;
-
     private final PessoaRepository pessoaRepository;
 
-    public ServicePessoa(ServiceEmpresa serviceEmpresa, PessoaRepository pessoaRepository) {
+    public ServicePessoa(ServiceEmpresa serviceEmpresa,
+                         PessoaRepository pessoaRepository) {
         this.serviceEmpresa = serviceEmpresa;
         this.pessoaRepository = pessoaRepository;
     }
