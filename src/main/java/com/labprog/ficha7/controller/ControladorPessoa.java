@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class ControladorPessoa {
     private final ServicePessoa servicePessoa;
 
@@ -57,7 +58,6 @@ public class ControladorPessoa {
     }
 
     @GetMapping("/getAllPessoas")
-    @CrossOrigin(origins = "*")
     public ResponseEntity<SimpleResponse> getPessoas() {
         PessoasResponse pr = new PessoasResponse();
         pr.setPessoas(servicePessoa.getPessoas());
