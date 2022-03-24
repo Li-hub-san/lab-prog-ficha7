@@ -26,23 +26,44 @@ public class ServicePessoa {
     }
 
     public Pessoa addPessoa(Pessoa pessoa) throws SimpleException {
-        if (pessoa.getId() != null) {
-            throw new SimpleException(ExceptionCode.ID_NAO_PERMITIDO, "A DB é responsável por gerar o id.");
-        }
-
-        if (pessoa.getIdade() < 16 || pessoa.getNome() == null || pessoa.getNome().isBlank()) {
-            throw new SimpleException(ExceptionCode.CAMPOS_INCOMPLETOS, "Campos incompletos.");
-        }
-
-        if (pessoa.getEmpresa() == null) {
-            throw new SimpleException(ExceptionCode.NAO_ENCONTRADO, "Empresa não encontrada");
-        }
+        validateIdNotExists(pessoa);
+        validateFields(pessoa);
 
         Empresa empresaDb = serviceEmpresa.getEmpresa(pessoa.getEmpresa().getId());
         empresaDb.aumentarFuncionariosAtuais();
         pessoa.setEmpresa(empresaDb);
 
         return pessoaRepository.save(pessoa);
+    }
+
+    private void validateIdNotExists(Pessoa pessoa) throws SimpleException {
+        if (pessoa.getId() != null) {
+            throw new SimpleException(ExceptionCode.ID_NAO_PERMITIDO, "A DB é responsável por gerar o id.");
+        }
+    }
+
+    private void validateFields(Pessoa pessoa) throws SimpleException {
+        validateIdade(pessoa);
+        validateNome(pessoa);
+        validateEmpresa(pessoa);
+    }
+
+    private void validateEmpresa(Pessoa pessoa) throws SimpleException {
+        if (pessoa.getEmpresa() == null) {
+            throw new SimpleException(ExceptionCode.NAO_ENCONTRADO, "Empresa não encontrada");
+        }
+    }
+
+    private void validateIdade(Pessoa pessoa) throws SimpleException {
+        if (pessoa.getIdade() < 16) {
+            throw new SimpleException(ExceptionCode.IDADE_INVALIDA, "Idade < 16");
+        }
+    }
+
+    private void validateNome(Pessoa pessoa) throws SimpleException {
+        if (pessoa.getNome() == null || pessoa.getNome().isBlank()) {
+            throw new SimpleException(ExceptionCode.NOME_INVALIDO, "Nome nulo ou em branco");
+        }
     }
 
     public Pessoa updatePessoa(Pessoa pessoa) throws SimpleException {
@@ -52,23 +73,11 @@ public class ServicePessoa {
 
         Pessoa pessoaDb = getPessoa(pessoa.getId());
 
-        if (pessoa.getIdade() >= 16) {
-            pessoaDb.setIdade(pessoa.getIdade());
-        } else {
-            throw new SimpleException(ExceptionCode.IDADE_INVALIDA, "Idade < 16");
-        }
+        validateFields(pessoa);
 
-        if (pessoa.getNome() != null && !pessoa.getNome().isBlank()) {
-            pessoaDb.setNome(pessoa.getNome());
-        } else {
-            throw new SimpleException(ExceptionCode.NOME_INVALIDO, "Nome nulo ou em branco");
-        }
-
-        if (pessoa.getEmail() != null && !pessoa.getEmail().isBlank()) {
-            pessoaDb.setEmail(pessoa.getEmail());
-        } else {
-            throw new SimpleException(ExceptionCode.EMAIL_INVALIDO, "Email nulo ou em branco");
-        }
+        pessoaDb.setIdade(pessoa.getIdade());
+        pessoaDb.setNome(pessoa.getNome());
+        pessoaDb.setEmail(pessoa.getEmail());
 
         return pessoaRepository.save(pessoaDb);
     }
@@ -83,7 +92,7 @@ public class ServicePessoa {
     }
 
     public List<Pessoa> getPessoas() {
-        return (List<Pessoa>) pessoaRepository.findAll();
+        return pessoaRepository.findAllByOrderByIdDesc();
     }
 
     public Pessoa getPessoa(Long id) throws SimpleException {
