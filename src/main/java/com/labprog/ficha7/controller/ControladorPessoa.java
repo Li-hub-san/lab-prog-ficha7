@@ -57,6 +57,7 @@ public class ControladorPessoa {
     }
 
     @GetMapping("/getAllPessoas")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<SimpleResponse> getPessoas() {
         PessoasResponse pr = new PessoasResponse();
         pr.setPessoas(servicePessoa.getPessoas());
